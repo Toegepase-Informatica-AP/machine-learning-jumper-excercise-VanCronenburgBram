@@ -1,0 +1,2 @@
+C:\Users\bramv\Documents\GitHub\machine-learning-jumper-excercise-VanCronenburgBram\Jumper-Exercise-ML\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\bramv\Documents\GitHub\machine-learning-jumper-excercise-VanCronenburgBram\Jumper-Exercise-ML\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
