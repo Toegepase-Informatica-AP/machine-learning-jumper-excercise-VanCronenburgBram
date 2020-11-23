@@ -4,15 +4,58 @@ using UnityEngine;
 
 public class Player : Agent
 {
+    public float jumpHeight = 1f;
+
+    private bool canJump = true;
     private Rigidbody body;
     private Environment environment;
-    private int carsDodged = 0;
+    private int carsHit = 0;
 
     public override void Initialize()
     {
         base.Initialize();
         body = GetComponent<Rigidbody>();
         environment = GetComponentInParent<Environment>();
+    }
+
+    private void JumpPlayer()
+    {
+        if (canJump)
+        {
+            body.AddForce(new Vector3(0, jumpHeight * 1, 0), ForceMode.Impulse);
+            canJump = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.Space))
+            JumpPlayer();
+
+        Transform street = environment.transform.Find("Street");
+
+        if (transform.position.y - street.position.y <= 1)
+        {
+            AddReward(0.001f);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Street"))
+            canJump = true;
+
+        if (collision.gameObject.CompareTag("Car"))
+        {
+            AddReward(-1f);
+            /*environment.ClearEnvironment();
+            environment.SpawnCar();
+            carsHit++;
+
+            if (carsHit >= 5)
+                EndEpisode();*/
+            EndEpisode();
+        }
     }
 
     public override void OnEpisodeBegin()
@@ -23,7 +66,7 @@ public class Player : Agent
         environment.ClearEnvironment();
         environment.SpawnCar();
 
-        carsDodged = 0;
+        carsHit = 0;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -36,19 +79,17 @@ public class Player : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
-        actionsOut[0] = 0f;
-        actionsOut[1] = 0f;
-        actionsOut[2] = 0f;
-
-        if (Input.GetKey(KeyCode.Space)) // Jumping
+        if (Input.GetKey(KeyCode.Space))
         {
-            actionsOut[2] = 1f;
+            JumpPlayer();
         }
     }
 
-    void OnCollisionEnter()
+    public override void OnActionReceived(float[] vectorAction)
     {
-        AddReward(-1f);
-        EndEpisode();
+        if (vectorAction[0] == 1f)
+        {
+            JumpPlayer();
+        }
     }
 }

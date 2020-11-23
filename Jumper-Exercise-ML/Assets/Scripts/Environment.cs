@@ -17,12 +17,6 @@ public class Environment : MonoBehaviour
         player = transform.GetComponentInChildren<Player>();
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         scoreBoard.text = player.GetCumulativeReward().ToString("f2");
@@ -43,4 +37,6 @@ public class Environment : MonoBehaviour
         newCar.transform.SetParent(spawnCar.transform);
         newCar.transform.localPosition = new Vector3(-18.5f, 1f);
     }
+
+
 }
