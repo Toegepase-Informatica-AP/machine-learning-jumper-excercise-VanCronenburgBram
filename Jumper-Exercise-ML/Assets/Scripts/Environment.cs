@@ -35,7 +35,7 @@ public class Environment : MonoBehaviour
         GameObject newCar = Instantiate(carPrefab.gameObject);
 
         newCar.transform.SetParent(spawnCar.transform);
-        newCar.transform.localPosition = new Vector3(-18.5f, 1f);
+        newCar.transform.localPosition = new Vector3(-18.5f, 0.5f);
     }
 
 
