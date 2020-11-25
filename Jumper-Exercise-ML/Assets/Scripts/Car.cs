@@ -16,7 +16,7 @@ public class Car : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3((100 + speed)/ 3000, 0);
+        transform.position += new Vector3((100 + speed)/ 10, 0) * Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)

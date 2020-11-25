@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Agent
 {
-    public float jumpHeight = 1f;
+    public float jumpHeight = 0.01f;
 
     private bool canJump = true;
     private Rigidbody body;
@@ -22,7 +22,7 @@ public class Player : Agent
     {
         if (canJump)
         {
-            body.AddForce(new Vector3(0, jumpHeight * 1, 0), ForceMode.Impulse);
+            body.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.VelocityChange);
             canJump = false;
         }
     }
@@ -66,7 +66,12 @@ public class Player : Agent
         environment.ClearEnvironment();
         environment.SpawnCar();
 
-        carsHit = 0;
+        //carsHit = 0;
+
+        if (environment.GetComponentInChildren<Player>() == null)
+        {
+            environment.SpawnPlayer();
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)

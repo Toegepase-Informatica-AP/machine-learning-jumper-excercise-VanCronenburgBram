@@ -1,4 +1,20 @@
 {
+    "My Behavior": {
+        "checkpoints": [
+            {
+                "steps": 20928,
+                "file_path": "results\\Jumper-04\\My Behavior\\My Behavior-20928.nn",
+                "reward": null,
+                "creation_time": 1606313925.8200982
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20928,
+            "file_path": "results\\Jumper-04\\My Behavior.nn",
+            "reward": null,
+            "creation_time": 1606313925.8200982
+        }
+    },
     "metadata": {
         "stats_format_version": "0.1.0",
         "mlagents_version": "0.21.0",
