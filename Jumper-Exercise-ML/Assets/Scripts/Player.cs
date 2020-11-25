@@ -27,16 +27,15 @@ public class Player : Agent
         }
     }
 
-    /*private void FixedUpdate()
+    private void FixedUpdate()
     {
         Transform street = environment.transform.Find("Street");
 
-        *//*if (transform.position.y - street.position.y <= 0)
+        if (transform.position.y - street.position.y <= 1)
         {
-            canJump = true;
             AddReward(0.001f);
-        }*//*
-    }*/
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -105,7 +104,7 @@ public class Player : Agent
     {
         if (vectorAction[0] == 0)
         {
-            AddReward(0.001f);
+            //AddReward(0.001f);
             return;
         }
 

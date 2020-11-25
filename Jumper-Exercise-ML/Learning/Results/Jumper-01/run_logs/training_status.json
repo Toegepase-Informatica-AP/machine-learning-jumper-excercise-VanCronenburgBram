@@ -2,17 +2,17 @@
     "Player": {
         "checkpoints": [
             {
-                "steps": 158487,
-                "file_path": "results\\Jumper-01\\Player\\Player-158487.nn",
-                "reward": -3.3046666216105223,
-                "creation_time": 1606330454.1556864
+                "steps": 11487,
+                "file_path": "results\\Jumper-01\\Player\\Player-11487.nn",
+                "reward": -5.0,
+                "creation_time": 1606330759.0724244
             }
         ],
         "final_checkpoint": {
-            "steps": 158487,
+            "steps": 11487,
             "file_path": "results\\Jumper-01\\Player.nn",
-            "reward": -3.3046666216105223,
-            "creation_time": 1606330454.1556864
+            "reward": -5.0,
+            "creation_time": 1606330759.0724244
         }
     },
     "metadata": {
