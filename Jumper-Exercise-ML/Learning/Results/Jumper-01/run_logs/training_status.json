@@ -1,18 +1,18 @@
 {
-    "My Behavior": {
+    "Player": {
         "checkpoints": [
             {
-                "steps": 10240,
-                "file_path": "results\\Jumper-01\\My Behavior\\My Behavior-10240.nn",
-                "reward": null,
-                "creation_time": 1606310873.9639943
+                "steps": 158487,
+                "file_path": "results\\Jumper-01\\Player\\Player-158487.nn",
+                "reward": -3.3046666216105223,
+                "creation_time": 1606330454.1556864
             }
         ],
         "final_checkpoint": {
-            "steps": 10240,
-            "file_path": "results\\Jumper-01\\My Behavior.nn",
-            "reward": null,
-            "creation_time": 1606310873.9639943
+            "steps": 158487,
+            "file_path": "results\\Jumper-01\\Player.nn",
+            "reward": -3.3046666216105223,
+            "creation_time": 1606330454.1556864
         }
     },
     "metadata": {

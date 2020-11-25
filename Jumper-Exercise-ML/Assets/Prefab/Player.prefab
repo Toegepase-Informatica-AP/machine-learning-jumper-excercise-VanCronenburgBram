@@ -132,7 +132,7 @@ MonoBehaviour:
   m_RaysPerDirection: 1
   m_MaxRayDegrees: 0
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Player
   TeamId: 0
   m_UseChildSensors: 1
   m_ObservableAttributeHandling: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 0
 --- !u!114 &4782404982064014941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 0
   jumpHeight: 6
 --- !u!114 &2375182738077541359
 MonoBehaviour:

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Player : Agent
 {
-    public float jumpHeight = 0.01f;
+    public float jumpHeight = 6f;
 
     private bool canJump = true;
     private Rigidbody body;
     private Environment environment;
-    private int carsHit = 0;
+    private int carsHit;
 
     public override void Initialize()
     {
@@ -27,18 +27,16 @@ public class Player : Agent
         }
     }
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Space))
-            JumpPlayer();
-
         Transform street = environment.transform.Find("Street");
 
-        if (transform.position.y - street.position.y <= 1)
+        *//*if (transform.position.y - street.position.y <= 0)
         {
+            canJump = true;
             AddReward(0.001f);
-        }
-    }
+        }*//*
+    }*/
 
     void OnCollisionEnter(Collision collision)
     {
@@ -49,50 +47,69 @@ public class Player : Agent
         {
             AddReward(-1f);
             /*environment.ClearEnvironment();
-            environment.SpawnCar();
+            environment.SpawnCar();*/
             carsHit++;
 
             if (carsHit >= 5)
-                EndEpisode();*/
-            EndEpisode();
+                EndEpisode();
+            else
+            {
+                environment.ClearEnvironment();
+                environment.SpawnCar();
+            }
+            //EndEpisode();
         }
     }
 
     public override void OnEpisodeBegin()
     {
+        transform.localPosition = new Vector3(22f, 0.5f, 0f);
+        //transform.localRotation = new Quaternion(0f, -90f, 0f, 0f);
+
         body.angularVelocity = Vector3.zero;
         body.velocity = Vector3.zero;
 
         environment.ClearEnvironment();
         environment.SpawnCar();
 
-        //carsHit = 0;
+        carsHit = 0;
 
-        if (environment.GetComponentInChildren<Player>() == null)
+        /*if (environment.GetComponentInChildren<Player>() == null)
         {
             environment.SpawnPlayer();
-        }
+        }*/
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        if (transform.localPosition.y > 1)
+        //sensor.AddObservation(canJump);
+
+        /*if (transform.localPosition.y < 0)
         {
             AddReward(1f);
-        }
+            EndEpisode();
+        }*/
     }
 
     public override void Heuristic(float[] actionsOut)
     {
-        if (Input.GetKey(KeyCode.Space))
+        actionsOut[0] = 0;
+
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            JumpPlayer();
+            actionsOut[0] = 1;
         }
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
-        if (vectorAction[0] == 1f)
+        if (vectorAction[0] == 0)
+        {
+            AddReward(0.001f);
+            return;
+        }
+
+        if (vectorAction[0] != 0)
         {
             JumpPlayer();
         }

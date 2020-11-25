@@ -331,7 +331,6 @@ Transform:
   - {fileID: 2772519567775172538}
   - {fileID: 2772519568051192811}
   - {fileID: 2772519567958572856}
-  - {fileID: 2772519569848825534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -351,36 +350,6 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 4782404982064014941, guid: d5afa58d72dceb744af64287db3e671e,
     type: 3}
---- !u!1 &2772519569848825521
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2772519569848825534}
-  m_Layer: 0
-  m_Name: SpawnPlayer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2772519569848825534
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2772519569848825521}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2772519569246030076}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2772519567846834847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +357,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2772519569246030076}
     m_Modifications:
+    - target: {fileID: 2375182738077541359, guid: d5afa58d72dceb744af64287db3e671e,
+        type: 3}
+      propertyPath: TakeActionsBetweenDecisions
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375182738077541359, guid: d5afa58d72dceb744af64287db3e671e,
+        type: 3}
+      propertyPath: DecisionPeriod
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5112899745571005155, guid: d5afa58d72dceb744af64287db3e671e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -448,7 +427,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7755617694990654941, guid: d5afa58d72dceb744af64287db3e671e,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6578220865177397878, guid: d5afa58d72dceb744af64287db3e671e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d5afa58d72dceb744af64287db3e671e, type: 3}
 --- !u!4 &6957319121677934716 stripped
 Transform:
