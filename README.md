@@ -2,13 +2,13 @@
 
 ## Inhoudsopgave
 
-1. [Inleiding](#1.-inleiding)
-2. [Benodigdheden](#2.-benodigdheden)
-3. [Opzet](#3.-opzet)
-4. [Objecten](#4.-objecten)
-5. [Scripts](#5.-scripts)
-6. [Beloningsysteem](#6.-beloningsysteem)
-7. [Training](#7.-training)
+1. [Inleiding](#1-inleiding)
+2. [Benodigdheden](#2-benodigdheden)
+3. [Opzet](#3-opzet)
+4. [Objecten](#4-objecten)
+5. [Scripts](#5-scripts)
+6. [Beloningsysteem](#6-beloningsysteem)
+7. [Training](#7-training)
 
 ## 1. Inleiding
 
@@ -86,7 +86,7 @@ Het Player object is het belangrijkste object van heel deze exercise. Het krijgt
 
 Het Environment script staat in voor het spawnen van Cars en Rewards, het updaten van het scoreboard en het verwijderen van car en reward objecten.
 
-![Configuration Environment script](Images\configEnvironment.PNG)
+![Configuration Environment script](Images/configEnvironment.PNG)
 
 #### 5.2 Car
 
@@ -114,27 +114,27 @@ heuristic methode die ervoor zorgt dat we het handmattig kunnen testen
 
 onActionRecieved die ervoor zorgt dat acties worden uitgevoerd tijdens het testen en tijdens het leren
 
-![Configuration Player script](Images\configPlayer.PNG)
+![Configuration Player script](Images/configPlayer.PNG)
 
 #### 5.5 RayPerception Sensor 3D
 
 Zoals eerder gezegd werken we met 2 verschillende RayPersception sensors dit omdat de objectem car en reward niet door dezelfde RayPerception sensor gezien kunnen worden. De eerste RayPerception sensor is zo ingesteld dat hij maar 1 ray heeft die vooruit kijkt met een lengte van 40. De tweede RayPerception sensor is hetzelfde ingesteld alleen krijgt deze een Start en End vertical offset van 2. Hierdoor kan de eerste RayPerception sensor het Car object zien en de tweede het Reward object.
 
-![Configuration RayPerception sensor 1](Images\configRayPerceptionDown.PNG)
+![Configuration RayPerception sensor 1](Images/configRayPerceptionDown.PNG)
 
-![Configuration RayPerception sensor 2](Images\configRayPerceptionUp.PNG)
+![Configuration RayPerception sensor 2](Images/configRayPerceptionUp.PNG)
 
 #### 5.6 Behavior Parameters
 
 Door Behavior Type aan te passen naar Heuristic Only kan er handmattig getest worden. Door dit aan te passen naar Default kan er samen met ML Agents geleert worden. Als er in model een brein word gestoken kan er ook vanuit dit brein verder geleerd worden. Hiermee kan ook gekeken worden wat het brein al kan zonder verder te leren.
 
-![Configuration Behavior Parameters](Images\configBehaviorParameters.PNG)
+![Configuration Behavior Parameters](Images/configBehaviorParameters.PNG)
 
 #### 5.7 Decision Requester
 
 
 
-![Configuration Behavior Parameters](Images\configDecisionRequester.PNG)
+![Configuration Behavior Parameters](Images/configDecisionRequester.PNG)
 
 ## 6. Beloningsysteem
 
