@@ -21,11 +21,10 @@ public class Car : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("CarDestroyer"))
+        if (collision.gameObject.CompareTag("ObjectDestroyer"))
         {
-            
             environment.ClearEnvironment();
-            environment.SpawnCar();
+            environment.SpawnObject();
         }
     }
 }

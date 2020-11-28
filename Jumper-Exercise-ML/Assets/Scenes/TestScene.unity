@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment
       objectReference: {fileID: 0}
+    - target: {fileID: 4424529900747915375, guid: 193c0f159590c2344918c9b9d8a4c530,
+        type: 3}
+      propertyPath: m_SensorName
+      value: RayPerceptionSensor2
+      objectReference: {fileID: 0}
     - target: {fileID: 5609386066503163714, guid: 193c0f159590c2344918c9b9d8a4c530,
         type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]

@@ -188,8 +188,8 @@ GameObject:
   - component: {fileID: 2772519567958572838}
   - component: {fileID: 2772519567958572857}
   m_Layer: 0
-  m_Name: CarDestroyer
-  m_TagString: CarDestroyer
+  m_Name: ObjectDestroyer
+  m_TagString: ObjectDestroyer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2772519568051192811}
   m_Layer: 0
-  m_Name: SpawnCar
+  m_Name: SpawnObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,8 +348,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carPrefab: {fileID: 1801805616468798913, guid: 5be0146fb9af49b42943435f53b1596b,
     type: 3}
-  playerPrefab: {fileID: 4782404982064014941, guid: d5afa58d72dceb744af64287db3e671e,
+  rewardPrefab: {fileID: 183906759934492425, guid: afe7dbd75d056934fa1fcfc750452d54,
     type: 3}
+--- !u!114 &4424529900747915375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9121627113301744617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor2
+  m_DetectableTags: []
+  m_RaysPerDirection: 1
+  m_MaxRayDegrees: 0
+  m_SphereCastRadius: 0.5
+  m_RayLength: 40
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  rayHitColor: {r: 0, g: 1, b: 0.031012535, a: 1}
+  rayMissColor: {r: 1, g: 0, b: 0, a: 1}
+  m_StartVerticalOffset: 2
+  m_EndVerticalOffset: 2
 --- !u!1001 &2772519567846834847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -357,6 +383,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2772519569246030076}
     m_Modifications:
+    - target: {fileID: 175714654305045876, guid: d5afa58d72dceb744af64287db3e671e,
+        type: 3}
+      propertyPath: m_MaxRayDegrees
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 175714654305045876, guid: d5afa58d72dceb744af64287db3e671e,
+        type: 3}
+      propertyPath: m_StartVerticalOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2375182738077541359, guid: d5afa58d72dceb744af64287db3e671e,
         type: 3}
       propertyPath: TakeActionsBetweenDecisions
@@ -370,7 +406,7 @@ PrefabInstance:
     - target: {fileID: 5112899745571005155, guid: d5afa58d72dceb744af64287db3e671e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22
+      value: 18.32
       objectReference: {fileID: 0}
     - target: {fileID: 5112899745571005155, guid: d5afa58d72dceb744af64287db3e671e,
         type: 3}
@@ -380,7 +416,7 @@ PrefabInstance:
     - target: {fileID: 5112899745571005155, guid: d5afa58d72dceb744af64287db3e671e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5112899745571005155, guid: d5afa58d72dceb744af64287db3e671e,
         type: 3}
@@ -432,9 +468,20 @@ PrefabInstance:
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7755617694990654941, guid: d5afa58d72dceb744af64287db3e671e,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6578220865177397878, guid: d5afa58d72dceb744af64287db3e671e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d5afa58d72dceb744af64287db3e671e, type: 3}
+--- !u!1 &9121627113301744617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6408464337152285046, guid: d5afa58d72dceb744af64287db3e671e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2772519567846834847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6957319121677934716 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5112899745571005155, guid: d5afa58d72dceb744af64287db3e671e,

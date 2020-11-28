@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Car
   - Street
-  - CarDestroyer
+  - Reward
+  - ObjectDestroyer
   layers:
   - Default
   - TransparentFX

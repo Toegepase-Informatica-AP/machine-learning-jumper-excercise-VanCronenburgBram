@@ -45,8 +45,6 @@ public class Player : Agent
         if (collision.gameObject.CompareTag("Car"))
         {
             AddReward(-1f);
-            /*environment.ClearEnvironment();
-            environment.SpawnCar();*/
             carsHit++;
 
             if (carsHit >= 5)
@@ -54,47 +52,40 @@ public class Player : Agent
             else
             {
                 environment.ClearEnvironment();
-                environment.SpawnCar();
+                environment.SpawnObject();
             }
-            //EndEpisode();
+        }
+
+        if (collision.gameObject.CompareTag("Reward"))
+        {
+            AddReward(1f);
+            environment.ClearEnvironment();
+            environment.SpawnObject();
         }
     }
 
     public override void OnEpisodeBegin()
     {
         transform.localPosition = new Vector3(22f, 0.5f, 0f);
-        //transform.localRotation = new Quaternion(0f, -90f, 0f, 0f);
 
         body.angularVelocity = Vector3.zero;
         body.velocity = Vector3.zero;
 
         environment.ClearEnvironment();
-        environment.SpawnCar();
+        environment.SpawnObject();
 
         carsHit = 0;
-
-        /*if (environment.GetComponentInChildren<Player>() == null)
-        {
-            environment.SpawnPlayer();
-        }*/
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //sensor.AddObservation(canJump);
-
-        /*if (transform.localPosition.y < 0)
-        {
-            AddReward(1f);
-            EndEpisode();
-        }*/
     }
 
     public override void Heuristic(float[] actionsOut)
     {
         actionsOut[0] = 0;
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.Space))
         {
             actionsOut[0] = 1;
         }
@@ -104,7 +95,6 @@ public class Player : Agent
     {
         if (vectorAction[0] == 0)
         {
-            //AddReward(0.001f);
             return;
         }
 

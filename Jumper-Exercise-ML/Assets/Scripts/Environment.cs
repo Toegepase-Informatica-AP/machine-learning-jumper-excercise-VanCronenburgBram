@@ -6,16 +6,15 @@ using UnityEngine;
 public class Environment : MonoBehaviour
 {
     public Car carPrefab;
-    public Player playerPrefab;
+    public Reward rewardPrefab;
     private Player player;
     private TextMeshPro scoreBoard;
-    private GameObject spawnCar;
-    private GameObject spawnPlayer;
+    private GameObject spawnObject;
+    private readonly static System.Random random = new System.Random();
 
     public void OnEnable()
     {
-        spawnCar = transform.Find("SpawnCar").gameObject;
-        //spawnPlayer = transform.Find("SpawnPlayer").gameObject;
+        spawnObject = transform.Find("SpawnObject").gameObject;
         scoreBoard = transform.GetComponentInChildren<TextMeshPro>();
         player = transform.GetComponentInChildren<Player>();
     }
@@ -27,9 +26,22 @@ public class Environment : MonoBehaviour
 
     public void ClearEnvironment()
     {
-        foreach (Transform car in spawnCar.transform)
+        foreach (Transform _object in spawnObject.transform)
         {
-            Destroy(car.gameObject);
+            Destroy(_object.gameObject);
+        }
+    }
+
+    public void SpawnObject()
+    {
+        float randomObject = random.Next(1, 4);
+        if (randomObject <= 2)
+        {
+            SpawnCar();
+        }
+        else
+        {
+            SpawnReward();
         }
     }
 
@@ -37,20 +49,15 @@ public class Environment : MonoBehaviour
     {
         GameObject newCar = Instantiate(carPrefab.gameObject);
 
-        newCar.transform.SetParent(spawnCar.transform);
+        newCar.transform.SetParent(spawnObject.transform);
         newCar.transform.localPosition = new Vector3(-18.5f, 0.5f);
     }
 
-    public void SpawnPlayer()
+    public void SpawnReward()
     {
-        /*GameObject newPlayer = Instantiate(playerPrefab.gameObject);
+        GameObject newReward = Instantiate(rewardPrefab.gameObject);
 
-        newPlayer.transform.SetParent(spawnPlayer.transform);
-        newPlayer.transform.localPosition = new Vector3(22f, 0.5f);*/
-        GameObject newPlayer = Instantiate(playerPrefab.gameObject);
-
-        newPlayer.transform.SetParent(spawnPlayer.transform);
-        newPlayer.transform.localPosition = new Vector3(22f, 0.5f);
-        newPlayer.transform.localRotation = new Quaternion(0f, -90f, 0f, 0f);
+        newReward.transform.SetParent(spawnObject.transform);
+        newReward.transform.localPosition = new Vector3(-18.5f, 2.5f);
     }
 }
