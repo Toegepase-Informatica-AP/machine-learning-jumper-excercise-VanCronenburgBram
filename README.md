@@ -84,7 +84,74 @@ Het Player object is het belangrijkste object van het project. Het bevat een rig
 
 #### 5.1 Environment
 
+![Configuration Environment script](Images/configEnvironment.PNG)
+
 Het Environment script zorgt ervoor dat cars en rewards worden gegenereerd. Dit script werkt het scoreboard bij en verwijdert cars en rewards die de object destroyer aanraken. Bij het genereren van rewards wordt er met een random generator gewerkt. De kans dat er een car wordt gegenereerd is 2/3. De kans dat er een Reward wordt gegenereerd is 1/3. Er worden meer cars gegeneerd dan rewards omdat het hoofddoel is dat de player leert om alle cars te ontwijken.
+
+```csharp
+public class Environment : MonoBehaviour
+{
+    public Car carPrefab;
+    public Reward rewardPrefab;
+    private Player player;
+    private TextMeshPro scoreBoard;
+    private GameObject spawnObject;
+    private readonly static System.Random random = new System.Random();
+
+    public void OnEnable()
+    {
+        spawnObject = transform.Find("SpawnObject").gameObject;
+        scoreBoard = transform.GetComponentInChildren<TextMeshPro>();
+        player = transform.GetComponentInChildren<Player>();
+    }
+
+    private void FixedUpdate()
+    {
+        scoreBoard.text = player.GetCumulativeReward().ToString("f2");
+    }
+
+    public void ClearEnvironment()
+    {
+        foreach (Transform _object in spawnObject.transform)
+        {
+            Destroy(_object.gameObject);
+        }
+    }
+
+    public void SpawnObject()
+    {
+        float randomObject = random.Next(1, 4);
+        if (randomObject <= 2)
+        {
+            SpawnCar();
+        }
+        else
+        {
+            SpawnReward();
+        }
+    }
+
+    public void SpawnCar()
+    {
+        GameObject newCar = Instantiate(carPrefab.gameObject);
+
+        newCar.transform.SetParent(spawnObject.transform);
+        newCar.transform.localPosition = new Vector3(-18.5f, 0.5f);
+    }
+
+    public void SpawnReward()
+    {
+        GameObject newReward = Instantiate(rewardPrefab.gameObject);
+
+        newReward.transform.SetParent(spawnObject.transform);
+        newReward.transform.localPosition = new Vector3(-18.5f, 2.5f);
+    }
+}
+```
+
+#### 5.2 Car
+
+Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Ook zorgt dit script ervoor dat als er de car collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
 
 ```csharp
 public class Car : MonoBehaviour
@@ -114,17 +181,40 @@ public class Car : MonoBehaviour
 }
 ```
 
-![Configuration Environment script](Images/configEnvironment.PNG)
-
-#### 5.2 Car
-
-Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Ook zorgt dit script ervoor dat als er de car collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
-
 #### 5.3 Reward
 
 Het Reward script zorgt ervoor dat als een reward spawnt deze een random speed krijgt. Ook zorgt dit script ervoor dat als er de reward collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
 
+```csharp
+public class Reward : MonoBehaviour
+{
+    private readonly static System.Random random = new System.Random();
+    private readonly float speed = random.Next(1, 100);
+    private Environment environment;
+    void Start()
+    {
+        environment = GetComponentInParent<Environment>();
+    }
+
+    void Update()
+    {
+        transform.position += new Vector3((100 + speed) / 10, 0) * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("ObjectDestroyer"))
+        {
+            environment.ClearEnvironment();
+            environment.SpawnObject();
+        }
+    }
+}
+```
+
 #### 5.4 Player
+
+![Configuration Player script](Images/configPlayer.PNG)
 
 het agent script
 
@@ -142,7 +232,110 @@ heuristic methode die ervoor zorgt dat we het handmattig kunnen testen
 
 onActionRecieved die ervoor zorgt dat acties worden uitgevoerd tijdens het testen en tijdens het leren
 
-![Configuration Player script](Images/configPlayer.PNG)
+```csharp
+public class Player : Agent
+{
+    public float jumpHeight = 6f;
+
+    private bool canJump = true;
+    private Rigidbody body;
+    private Environment environment;
+    private int carsHit;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        body = GetComponent<Rigidbody>();
+        environment = GetComponentInParent<Environment>();
+    }
+
+    private void JumpPlayer()
+    {
+        if (canJump)
+        {
+            body.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.VelocityChange);
+            canJump = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Transform street = environment.transform.Find("Street");
+
+        if (transform.position.y - street.position.y <= 1)
+        {
+            AddReward(0.001f);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Street"))
+            canJump = true;
+
+        if (collision.gameObject.CompareTag("Car"))
+        {
+            AddReward(-1f);
+            carsHit++;
+
+            if (carsHit >= 5)
+                EndEpisode();
+            else
+            {
+                environment.ClearEnvironment();
+                environment.SpawnObject();
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Reward"))
+        {
+            AddReward(1f);
+            environment.ClearEnvironment();
+            environment.SpawnObject();
+        }
+    }
+
+    public override void OnEpisodeBegin()
+    {
+        transform.localPosition = new Vector3(22f, 0.5f, 0f);
+
+        body.angularVelocity = Vector3.zero;
+        body.velocity = Vector3.zero;
+
+        environment.ClearEnvironment();
+        environment.SpawnObject();
+
+        carsHit = 0;
+    }
+
+    public override void CollectObservations(VectorSensor sensor)
+    {
+    }
+
+    public override void Heuristic(float[] actionsOut)
+    {
+        actionsOut[0] = 0;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            actionsOut[0] = 1;
+        }
+    }
+
+    public override void OnActionReceived(float[] vectorAction)
+    {
+        if (vectorAction[0] == 0)
+        {
+            return;
+        }
+
+        if (vectorAction[0] != 0)
+        {
+            JumpPlayer();
+        }
+    }
+}
+```
 
 #### 5.5 RayPerception Sensor 3D
 
