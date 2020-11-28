@@ -58,39 +58,39 @@ Het car object is een 3D cube met de tag "Car". Dit object bevat een Rigidbody, 
 
 #### 4.3 Reward
 
-Het reward object is een 3D cube met de tag "Reward". Dit object bevat een Rigidbody, een material en het [Reward script](#5.3-Reward). De Rigidbody wordt gebruikt om ervoor te zorgen dat het object niet door de grond zakt. In de eigenschappen van de Rigidbody wordt de Y-coordinaat vastgezet zodat de reward op dezelfde hoogte blijft vliegen.
+Het reward object is een 3D cube met de tag "Reward". Dit object bevat een Rigidbody, een material en het [Reward script](#5.3-Reward). In de Rigidbody wordt de Y-coordinaat vastgezet zodat de reward op dezelfde hoogte blijft vliegen.
 
 #### 4.4 Object destroyer
 
-De Object destroyer is een 3D cube die vergroot is. Dit object bevat de tag "ObjectDestroyer". Dit object bepaalt het einde van de straat, zodat de objecten niet van de straat vliegen. Het heeft ook een material meegekregen.
+De Object destroyer is een 3D cube die vergroot is. Dit object bevat de tag "ObjectDestroyer". Het bepaalt het einde van de straat, zodat de objecten niet van de straat vliegen. De Object Destroyer heeft ook een material meegekregen.
 
 #### 4.5 Street
 
-Het Street object is een 3D plane object met de tag Street. Dit is de grond voor andere objecten op te plaatsen.
+Het Street object is een 3D plane object met de tag "Street". Dit is de grond voor andere objecten op te plaatsen.
 
 #### 4.6 SpawnObject
 
-Het SpawnObject is een empty 3D object. Dit object is een placeholder om cars en rewards in te spawnen.
+Het SpawnObject is een leeg 3D object. Dit object is een placeholder waarin cars en rewards spawnen.
 
 #### 4.7 Scoreboard
 
-Het Scoreboard object is een TextMeshPro object. Dit object laat tijdens het runnen de score zien.
+Het Scoreboard object is een TextMeshPro object. Dit object toont de score tijdens het trainen.
 
 #### 4.8 Player
 
-Het Player object is het belangrijkste object van heel deze exercise. Het krijgt een rigidbody en een material maar ook enkele scripts. De meeste van deze scripts zijn scripts die door unity of ML Agents worden voorzien. Deze zijn het [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D), Het [Behavior Parameters](#5.5-Behavior-Parameters) en het [Decision Requester](). Het [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D) script word er zelfs 2 keer in gestoken omdat we op 2 verschillende hoogtes willen kijken. Ook word er het Player object het [Player](#5.4-Player) script gestoken.
+Het Player object is het belangrijkste object van het project. Het krijgt een rigidbody en een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D), de [Behavior Parameters](#5.5-Behavior-Parameters) en de [Decision Requester](). Het [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes kan waarnemen. Het player object bevat ook het [Player](#5.4-Player) script.
 
 ## 5. Scripts
 
 #### 5.1 Environment
 
-Het Environment script staat in voor het spawnen van Cars en Rewards, het updaten van het scoreboard en het verwijderen van car en reward objecten.
+Het Environment script zorgt ervoor dat cars en rewards worden gegenereerd. Dit script update het scoreboard en verwijdert cars en rewards die de object destroyer aanraken. Bij het genereren van rewards wordt er met een random generator gewerkt. De kans dat er een car wordt gegenereerd is 2/3. De kans dat er een Reward wordt gegenereerd is 1/3. Er worden meer cars gegeneerd dan rewards omdat het hoofddoel is dat de player leert om alle cars te ontwijken.
 
 ![Configuration Environment script](Images/configEnvironment.PNG)
 
 #### 5.2 Car
 
-Het Car script zorgt ervoor dat als een car spawnt deze een random speed krijgt. Ook zorgt dit script ervoor dat als er de car collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
+Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Ook zorgt dit script ervoor dat als er de car collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
 
 #### 5.3 Reward
 
@@ -132,11 +132,28 @@ Door Behavior Type aan te passen naar Heuristic Only kan er handmattig getest wo
 
 #### 5.7 Decision Requester
 
-
-
 ![Configuration Behavior Parameters](Images/configDecisionRequester.PNG)
 
 ## 6. Beloningsysteem
 
+Het belongingsysteem is 1 van de belangrijkste componenten van het leerproces. Dit omdat uit deze belongingen de agent gaat leren. We hebben ervoor gekozen om de agent punten te geven om te blijven stilstaan. Dit om het niet continu springen af te raden. Ook krijgt de agent punten als hij een reward oppakt. De agent zal punten verliezen als hij geraakt word door een car.
+
 ## 7. Training
 
+Voordat we beginnen met het trainen moet er nog een Learning map toegevoegd worden aan het project. In deze map zetten we ook nog een yml file. Deze file is de configuratie van het leren. Hiernaast komt ook nog een Results map waar de resultaten van het leren in terecht komen.
+
+Om een leer omgeving op te zetten open je een cmd in de map Learning en geef je dit comando in:
+
+mlagents-learn Jumper.yml --run-id Jumper-01
+
+Het neemt de yml file Jumper voor de configuratie en maakt in de Results map het resultaat aan in de map Jumper-01. Om een tweede leer omgeving aan te maken moet de Jumper-01 aangepast worden naar bijvoorbeeld Jumper-02.
+
+Om de resultaten van het leerproces gemakkelijk te kunnen bekijken open je een cmd in de map Learning en geef je dit comando in:
+
+tensorboard --logdir results
+
+Dit opent op localhost:6006 een 
+
+![Training scene](Images/trainingScene.PNG)
+
+![yml file](Images/ymlFile.PNG)
