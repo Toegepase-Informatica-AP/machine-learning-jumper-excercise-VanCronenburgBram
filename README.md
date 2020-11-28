@@ -29,15 +29,22 @@ De benodigde programma's om dit project te maken zijn [Visual Studio Community](
 
 ![Opzet Project](Images/OpzetProject.PNG)
 
-Het project bestaat uit objecten en scripts.
+De groene kubus is de speler, de speler kan niet bewegen en kan enkel naar boven springen. De rode kubus is de auto die de speler moet ontwijken. Het grijze vlak is de straat waar de speler en de auto opstaan. De gele rechthoek is de car destroyer, dit zorgt ervoor dat de auto's die de speler ontweken heeft verdwijnen.
+
+Het environment object 
 
 ## 4. Objecten
 
-### 4.1 Enviroment
+### 4.1 Environment
 
-Het enviroment is 
+Het environment is een leeg object waar we alle andere objecten insteken. Hier komt ook het [Environment script]() in.
+Hiervan maken we ook een prefab zodat bij het leren er meerdere environments kunnen gebruikt worden. 
+
+### 4.2 
 
 ## 5. Scripts
+
+### 5.1 Environment
 
 ## 6. Beloningsysteem
 
