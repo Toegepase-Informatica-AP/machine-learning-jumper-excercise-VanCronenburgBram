@@ -78,7 +78,7 @@ Het Scoreboard object is een TextMeshPro object. Dit object toont de score tijde
 
 #### 4.8 Player
 
-Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D), de [Behavior Parameters](#56-Behavior-Parameters) en de [Decision Requester](). Het [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#54-Player) script.
+Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D), de [Behavior Parameters](#56-Behavior-Parameters) en de [Decision Requester](#57-decision-requester). Het [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#54-Player) script.
 
 ## 5. Scripts
 
