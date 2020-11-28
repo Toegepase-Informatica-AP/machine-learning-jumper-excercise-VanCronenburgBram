@@ -50,15 +50,15 @@ Environment groepeert alle objecten in één object. Dit maakt het gemakkelijker
 
 #### 4.1 Environment
 
-Het environment is een leeg object waar we alle andere objecten insteken. Dit object bevat het [Environment script](#5.1-Environment). We maken van environment een prefab, dit zorgt ervoor dat tijdens het trainen meerdere environments paralel kunnen trainen.
+Het environment is een leeg object waar we alle andere objecten insteken. Dit object bevat het [Environment script](#51-environment). We maken van environment een prefab, dit zorgt ervoor dat tijdens het trainen meerdere environments paralel kunnen trainen.
 
 #### 4.2 Car
 
-Het car object is een 3D cube met de tag "Car". Dit object bevat een Rigidbody, een material en het [Car script](#5.2-Car). De Rigidbody wordt gebruikt om ervoor te zorgen dat het object niet door de grond zakt.
+Het car object is een 3D cube met de tag "Car". Dit object bevat een Rigidbody, een material en het [Car script](#52-Car). De Rigidbody wordt gebruikt om ervoor te zorgen dat het object niet door de grond zakt.
 
 #### 4.3 Reward
 
-Het reward object is een 3D cube met de tag "Reward". Dit object bevat een Rigidbody, een material en het [Reward script](#5.3-Reward). In de Rigidbody wordt de Y-coordinaat vastgezet zodat de reward op dezelfde hoogte blijft vliegen.
+Het reward object is een 3D cube met de tag "Reward". Dit object bevat een Rigidbody, een material en het [Reward script](#53-Reward). In de Rigidbody wordt de Y-coordinaat vastgezet zodat de reward op dezelfde hoogte blijft vliegen.
 
 #### 4.4 Object destroyer
 
