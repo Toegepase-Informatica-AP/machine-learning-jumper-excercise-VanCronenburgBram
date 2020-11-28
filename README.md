@@ -70,7 +70,7 @@ Het Street object is een 3D plane object met de tag "Street". Dit is de grond vo
 
 #### 4.6 SpawnObject
 
-Het SpawnObject is een leeg 3D object. Dit object is een placeholder waarin cars en rewards spawnen.
+Het SpawnObject is een leeg 3D object. Dit object is een placeholder waarin cars en rewards worden gegenereerd.
 
 #### 4.7 Scoreboard
 
@@ -78,13 +78,41 @@ Het Scoreboard object is een TextMeshPro object. Dit object toont de score tijde
 
 #### 4.8 Player
 
-Het Player object is het belangrijkste object van het project. Het krijgt een rigidbody en een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D), de [Behavior Parameters](#5.5-Behavior-Parameters) en de [Decision Requester](). Het [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes kan waarnemen. Het player object bevat ook het [Player](#5.4-Player) script.
+Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D), de [Behavior Parameters](#5.5-Behavior-Parameters) en de [Decision Requester](). Het [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#5.4-Player) script.
 
 ## 5. Scripts
 
 #### 5.1 Environment
 
-Het Environment script zorgt ervoor dat cars en rewards worden gegenereerd. Dit script update het scoreboard en verwijdert cars en rewards die de object destroyer aanraken. Bij het genereren van rewards wordt er met een random generator gewerkt. De kans dat er een car wordt gegenereerd is 2/3. De kans dat er een Reward wordt gegenereerd is 1/3. Er worden meer cars gegeneerd dan rewards omdat het hoofddoel is dat de player leert om alle cars te ontwijken.
+Het Environment script zorgt ervoor dat cars en rewards worden gegenereerd. Dit script werkt het scoreboard bij en verwijdert cars en rewards die de object destroyer aanraken. Bij het genereren van rewards wordt er met een random generator gewerkt. De kans dat er een car wordt gegenereerd is 2/3. De kans dat er een Reward wordt gegenereerd is 1/3. Er worden meer cars gegeneerd dan rewards omdat het hoofddoel is dat de player leert om alle cars te ontwijken.
+
+```csharp
+public class Car : MonoBehaviour
+{
+    private readonly static System.Random random = new System.Random();
+    private readonly float speed = random.Next(1, 100);
+    private Environment environment;
+
+    void Start()
+    {
+        environment = GetComponentInParent<Environment>();
+    }
+
+    void Update()
+    {
+        transform.position += new Vector3((100 + speed)/ 10, 0) * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("ObjectDestroyer"))
+        {
+            environment.ClearEnvironment();
+            environment.SpawnObject();
+        }
+    }
+}
+```
 
 ![Configuration Environment script](Images/configEnvironment.PNG)
 
