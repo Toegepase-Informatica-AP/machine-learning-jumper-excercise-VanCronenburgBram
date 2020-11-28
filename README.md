@@ -50,7 +50,7 @@ Environment groepeert alle objecten in één object. Dit maakt het gemakkelijker
 
 #### 4.1 Environment
 
-Het environment is een leeg object waar we alle andere objecten insteken. Dit object bevat het [Environment script](#51-environment). We maken van environment een prefab, dit zorgt ervoor dat tijdens het trainen meerdere environments paralel kunnen trainen.
+Het environment is een leeg object waar we alle andere objecten insteken. Dit object bevat het [Environment script](#51-Environment). We maken van environment een prefab, dit zorgt ervoor dat tijdens het trainen meerdere environments paralel kunnen trainen.
 
 #### 4.2 Car
 
@@ -78,7 +78,7 @@ Het Scoreboard object is een TextMeshPro object. Dit object toont de score tijde
 
 #### 4.8 Player
 
-Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D), de [Behavior Parameters](#5.5-Behavior-Parameters) en de [Decision Requester](). Het [RayPerception Sensor 3D](#5.5-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#5.4-Player) script.
+Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D), de [Behavior Parameters](#56-Behavior-Parameters) en de [Decision Requester](). Het [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#54-Player) script.
 
 ## 5. Scripts
 
@@ -151,7 +151,7 @@ public class Environment : MonoBehaviour
 
 #### 5.2 Car
 
-Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Ook zorgt dit script ervoor dat als er de car collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
+Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Ook zorgt dit script ervoor dat als er de car collide met de [ObjectDestroyer](#44-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#51-Environment) script.
 
 ```csharp
 public class Car : MonoBehaviour
@@ -183,7 +183,7 @@ public class Car : MonoBehaviour
 
 #### 5.3 Reward
 
-Het Reward script zorgt ervoor dat als een reward spawnt deze een random speed krijgt. Ook zorgt dit script ervoor dat als er de reward collide met de [ObjectDestroyer](#4.4-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#5.1-Environment) script.
+Het Reward script zorgt ervoor dat als een reward spawnt deze een random speed krijgt. Ook zorgt dit script ervoor dat als er de reward collide met de [ObjectDestroyer](#44-Object-destroyer) de verwijder en respawn methode word aangeroepen in het [Enviroment](#51-Environment) script.
 
 ```csharp
 public class Reward : MonoBehaviour
