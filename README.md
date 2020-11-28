@@ -15,7 +15,7 @@
 De jumper oefening bestaat uit een speler en auto's die op de speler komen afgereden. Het is de bedoeling dat de speler de auto's ontwijkt door te springen. Als de speler de auto aanraakt, krijgt hij minpunten. De speler wordt getraind om de auto's te ontwijken. De auto's hebben altijd een variabele snelheid. Dit zorgt ervoor dat het spel nog moeilijker wordt voor de speler. In deze tutorial wordt uitgelegd hoe dit project in elkaar zit. Alle objecten, scripts en instellingen worden beschreven. De tutorial legt uit hoe het mogelijk is om deze oefening te reproduceren. Het project en de documentatie is gemaakt door Bram Van Cronenburg en Kristof De Winter.
 
 | Naam                | Studentnummer |
-| --------------------|:-------------:|
+|:-------------------:|:-------------:|
 | Kristof De Winter   | s106749       |
 | Bram Van Cronenburg | s109544       |
 
@@ -27,11 +27,15 @@ De benodigde programma's om dit project te maken zijn [Visual Studio Community](
 
 ## 3. Opzet
 
-![Opzet Project](images/OpzetProject.png)
+![Opzet Project](Images/OpzetProject.PNG)
 
-Het project bestaat uit objecten en scripts. 
+Het project bestaat uit objecten en scripts.
 
 ## 4. Objecten
+
+### 4.1 Enviroment
+
+Het enviroment is 
 
 ## 5. Scripts
 
