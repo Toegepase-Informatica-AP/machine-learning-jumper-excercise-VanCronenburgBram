@@ -5,9 +5,9 @@
 1. [Inleiding](#1-inleiding)
 2. [Benodigdheden](#2-benodigdheden)
 3. [Opzet](#3-opzet)
-4. [Objecten](#4-objecten)
-5. [Scripts](#5-scripts)
-6. [Beloningsysteem](#6-beloningsysteem)
+4. [Beloningsysteem](#4-beloningsysteem)
+5. [Objecten](#5-objecten)
+6. [Scripts](#6-scripts)
 7. [Training](#7-training)
 
 ## 1. Inleiding
@@ -48,7 +48,13 @@ Environment groepeert alle objecten in één object. Dit maakt het gemakkelijker
 
 ## 4. Beloningsysteem
 
-Het belongingsysteem is één van de belangrijkste componenten van het leerproces. Dit omdat uit deze belongingen de agent gaat leren. We hebben ervoor gekozen om de agent punten te geven om te blijven stilstaan. Dit om het niet continu springen af te raden. Ook krijgt de agent punten als hij een reward oppakt. De agent zal punten verliezen als hij geraakt word door een car.
+Het belongingsysteem is één van de belangrijkste componenten van het leerproces. De agent gaat leren aan de hand van de beloningen. We hebben ervoor gekozen om de agent punten te geven om te blijven stilstaan. Dit om het continu springen af te raden. Ook krijgt de agent punten als hij een reward oppakt. De agent zal punten verliezen als hij geraakt word door een car.
+
+| Actie                      | Beloning      |
+|:--------------------------:|:-------------:|
+| Player staat op de grond   | 0.001         |
+| Player botst op een car    | -1            |
+| Player botst op een reward |  1            |
 
 ## 5. Objecten
 
