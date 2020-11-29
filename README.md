@@ -240,8 +240,6 @@ In de "OnCollisionEnter()" methode wordt er een check uitgevoerd om te checken o
 
 #### 6.4 Player
 
-![Configuration Player script](Images/configPlayer.PNG)
-
 Player is het grootste script met de meeste functionaliteiten. In dit script wordt bepaalt welke acties de speler kan uitvoeren. Er wordt bepaalt wat de speler moet doen als hij een car of een reward aanraakt. Om van het player object een zelflerende agent te maken, moet het object eerst overervan van Agent. 
 
 Er worden vijf methodes overgeërfd:
@@ -382,6 +380,10 @@ De Heuristic methode is de belangrijkste methode voor het testen van de spelomge
 ```
 
 Deze methode gaat de acties die door de Heuristic methode of het brein meegegeven worden vertalen naar acties. Als er geen actie meegegeven word dan zal de vectorAction nul zijn en zal er niets gebeuren. Als de vectoractie niet nul is zal de player de "Jump()" methode aanroepen.
+
+![Configuration Player script](Images/configPlayer.PNG)
+
+Dit is de configuratie van het player script. Het maximaal aantal stappen en de maximale hoogte dat de player kan springen kan worden ingesteld.
 
 #### 6.5 RayPerception Sensor 3D
 
