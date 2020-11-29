@@ -31,7 +31,7 @@ De benodigde programma's om dit project te maken zijn [Visual Studio Community](
 
 De rode kubus is de auto die de speler moet ontwijken. Deze auto heeft een variabele snelheid en kan enkel vooruit bewegen. De roze kubus is een reward, deze heeft dezelfde eigenschappen als een auto. Het verschil tussen een auto en een reward is dat de rewards punten geven en de auto's minpunten geven als de speler deze aanraakt.
 
-De gele rechthoek is de object destroyer, deze zorgt ervoor dat de auto's en rewards die de speler niet raken verdwijnen. Het grijze vlak is de straat waar de speler en de auto opstaan. De speler krijgt punten zolang hij de straat aanraakt.
+De gele rechthoek is de object destroyer, deze zorgt ervoor dat de auto's en rewards die de speler niet raken verdwijnen. Het grijze vlak is de straat waar de speler en de auto opstaan.
 
 Het spawn object is een onzichtbaar object dat auto's en rewards kan genereren. Het scoreboard laat de cumulatieve score van een speler zien met een precisie van twee getallen na de komma. De groene kubus is de speler, de speler kan niet bewegen en kan enkel naar boven springen.
 
@@ -44,47 +44,51 @@ Het environment object bestaat uit:
 - Scoreboard
 - Player
 
-Environment groepeert alle objecten in één object. Dit maakt het gemakkelijker om meerdere environments paralel te laten trainen.
+Environment groepeert alle objecten in één object. Dit maakt het gemakkelijker om meerdere environments parallel te laten trainen.
 
-## 4. Objecten
+## 4. Beloningsysteem
 
-#### 4.1 Environment
+Het belongingsysteem is één van de belangrijkste componenten van het leerproces. Dit omdat uit deze belongingen de agent gaat leren. We hebben ervoor gekozen om de agent punten te geven om te blijven stilstaan. Dit om het niet continu springen af te raden. Ook krijgt de agent punten als hij een reward oppakt. De agent zal punten verliezen als hij geraakt word door een car.
 
-Het environment is een leeg object waar we alle andere objecten insteken. Dit object bevat het [Environment script](#51-Environment). We maken van environment een prefab, dit zorgt ervoor dat tijdens het trainen meerdere environments paralel kunnen trainen.
-
-#### 4.2 Car
-
-Het car object is een 3D cube met de tag "Car". Dit object bevat een Rigidbody, een material en het [Car script](#52-Car). De Rigidbody wordt gebruikt om ervoor te zorgen dat het object niet door de grond zakt.
-
-#### 4.3 Reward
-
-Het reward object is een 3D cube met de tag "Reward". Dit object bevat een Rigidbody, een material en het [Reward script](#53-Reward). In de Rigidbody wordt de Y-coordinaat vastgezet zodat de reward op dezelfde hoogte blijft vliegen.
-
-#### 4.4 Object destroyer
-
-De Object destroyer is een 3D cube die vergroot is. Dit object bevat de tag "ObjectDestroyer". Het bepaalt het einde van de straat, zodat de objecten niet van de straat vliegen. De Object Destroyer heeft ook een material meegekregen.
-
-#### 4.5 Street
-
-Het Street object is een 3D plane object met de tag "Street". Dit is de grond voor andere objecten op te plaatsen.
-
-#### 4.6 SpawnObject
-
-Het SpawnObject is een leeg 3D object. Dit object is een placeholder waarin cars en rewards worden gegenereerd.
-
-#### 4.7 Scoreboard
-
-Het Scoreboard object is een TextMeshPro object. Dit object toont de score tijdens het trainen.
-
-#### 4.8 Player
-
-Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D), de [Behavior Parameters](#56-Behavior-Parameters) en de [Decision Requester](#57-decision-requester). Het [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#54-Player) script.
-
-## 5. Scripts
+## 5. Objecten
 
 #### 5.1 Environment
 
-Het Environment script zorgt ervoor dat cars en rewards worden gegenereerd. Dit script werkt het scoreboard bij en verwijdert cars en rewards die de object destroyer aanraken. Bij het genereren van rewards wordt er met een random generator gewerkt. De kans dat er een car wordt gegenereerd is 2/3. De kans dat er een Reward wordt gegenereerd is 1/3. Er worden meer cars gegeneerd dan rewards omdat het hoofddoel is dat de player leert om alle cars te ontwijken.
+Het environment object is een leeg object waar alle andere objecten insteken. Dit object bevat het [Environment Script](#51-Environment). We maken van environment een prefab, dit zorgt ervoor dat tijdens het trainen meerdere environments parallel kunnen trainen.
+
+#### 5.2 Car
+
+Het car object is een 3D cube met de tag "Car". Dit object bevat een Rigidbody, een material en het [Car Script](#52-Car). De Rigidbody wordt gebruikt om ervoor te zorgen dat het object niet door de grond zakt.
+
+#### 5.3 Reward
+
+Het reward object is een 3D cube met de tag "Reward". Dit object bevat een Rigidbody, een material en het [Reward Script](#53-Reward). In de Rigidbody wordt de Y-coordinaat vastgezet zodat de reward op dezelfde hoogte blijft zweven.
+
+#### 5.4 Object destroyer
+
+De Object destroyer is een 3D cube die vergroot is. Dit object bevat de tag "ObjectDestroyer". Het bepaalt het einde van de straat, zodat de objecten niet van de straat vliegen. De Object Destroyer heeft ook een material meegekregen.
+
+#### 5.5 Street
+
+Het Street object is een 3D plane object met de tag "Street". Dit is de grond om andere objecten op te plaatsen.
+
+#### 5.6 SpawnObject
+
+Het SpawnObject is een leeg 3D object. Dit object is een placeholder waarin cars en rewards worden gegenereerd.
+
+#### 5.7 Scoreboard
+
+Het Scoreboard object is een TextMeshPro object. Dit object toont de score tijdens het trainen.
+
+#### 5.8 Player
+
+Het Player object is het belangrijkste object van het project. Het bevat een rigidbody, een material en meerdere scripts. De meeste van deze scripts worden door ML Agents of Unity voorzien. Deze zijn de [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D), de [Behavior Parameters](#56-Behavior-Parameters) en de [Decision Requester](#57-Decision-Requester). Het [RayPerception Sensor 3D](#55-RayPerception-Sensor-3D) script wordt twee maal gebruikt, zodat de speler op verschillende hoogtes objecten kan waarnemen. Het player object bevat ook het [Player](#54-Player) script.
+
+## 6. Scripts
+
+#### 6.1 Environment
+
+Het Environment script zorgt ervoor dat cars en rewards worden gegenereerd. Dit script werkt het scoreboard bij en verwijdert cars en rewards die de object destroyer aanraken. Bij het genereren van rewards wordt er met een random generator gewerkt. De kans dat er een car wordt gegenereerd is 2/3. De kans dat er een Reward wordt gegenereerd is 1/3. Er worden meer cars gegenereerd dan rewards omdat het hoofddoel is dat de player leert om alle cars te ontwijken.
 
 ```csharp
 public Car carPrefab;
@@ -102,8 +106,7 @@ public void OnEnable()
 }
 ```
 
-Bovenaan worden de objecten geïnitialiseerd.
-In de "OnEnable()" methode worden de variabelen opgevuld.
+Bovenaan worden de objecten geïnitialiseerd. In de "OnEnable()" methode worden de variabelen opgevuld.
 
 ```csharp
 private void FixedUpdate()
@@ -124,7 +127,7 @@ public void ClearEnvironment()
 }
 ```
 
-De "ClearEnvironment()" methode zorgt ervoor dat alle bestaande gameobjecten verwijderd worden. Deze methode wordt aangeroepen wanneer de episode eindigt.
+De "ClearEnvironment()" methode zorgt ervoor dat alle bestaande cars en/of rewards verwijderd worden. Deze methode wordt aangeroepen wanneer de episode eindigt.
 
 ```csharp
 public void SpawnObject()
@@ -140,7 +143,7 @@ public void SpawnObject()
     }
 }
 ```
-De "SpawnObject()" methode bepaalt of er een car object of een reward object wordt gegenereerd. Er wordt een willekeurig getal gegeneerd, op basis van dit getal wordt er een car of een reward gegeneerd.
+De "SpawnObject()" methode bepaalt of er een car object of een reward object wordt gegenereerd. Er wordt een willekeurig getal gegenereerd, op basis van dit getal wordt er een car of een reward gegenereerd.
 
 ```csharp
 public void SpawnCar()
@@ -164,11 +167,11 @@ Deze methodes zorgen ervoor dat er een nieuw car of reward wordt aangemaakt. De 
 
 ![Configuration Environment script](Images/configEnvironment.PNG)
 
-Bovenstaande afbeelding is de configuratie van het environment script in het environment object. Het is belangrijk dat de prefabs worden meegegeven, anders werkt het script niet.
+Dit is de configuratie van het environment script in het environment object. Het is belangrijk dat de prefabs worden meegegeven, anders werkt het script niet.
 
-#### 5.2 Car
+#### 6.2 Car
 
-Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Dit script detecteert als er een botsing is met de ObjectDestroyer. Als dit het geval is wordt het environment gereset en wordt er een nieuw car object gegenereerd.
+Het car script zorgt ervoor dat een gegenereerde car een willekeurige snelheid krijgt. Dit script detecteert als er een botsing is met de ObjectDestroyer. Als dit het geval is wordt de environment gereset en wordt er een nieuw car object gegenereerd.
 
 ```csharp
 private readonly static System.Random random = new System.Random();
@@ -199,11 +202,11 @@ private void OnCollisionEnter(Collision collision)
 }
 ```
 
-In de "OnCollisionEnter()" methode wordt er een check uitgevoerd om te checken of er een botsing is tussen een speler en een car object. Als er zich een botsing voordoet wordt het environment gereset en wordt er een nieuw car object gegenereerd.
+In de "OnCollisionEnter()" methode wordt er een check uitgevoerd om na te gaan of er een botsing is tussen een speler en een car object. Als er zich een botsing voordoet, wordt de environment gereset en wordt er een nieuw car object gegenereerd.
 
-#### 5.3 Reward
+#### 6.3 Reward
 
-Het reward script zorgt ervoor dat een gegenereerde reward een willekeurige snelheid krijgt. Dit script detecteert als er een botsing is met de ObjectDestroyer. Als dit het geval is wordt het environment gereset en wordt er een nieuw reward object gegenereerd.
+Het reward script zorgt ervoor dat een gegenereerde reward een willekeurige snelheid krijgt. Dit script detecteert als er een botsing is met de ObjectDestroyer. Als dit het geval is wordt de environment gereset en wordt er een nieuw reward object gegenereerd.
 
 ```csharp
 private readonly static System.Random random = new System.Random();
@@ -233,27 +236,20 @@ private void OnCollisionEnter(Collision collision)
 }
 ```
 
-In de "OnCollisionEnter()" methode wordt er een check uitgevoerd om te checken of er een botsing is tussen een speler en een reward object. Als er zich een botsing voordoet wordt het environment gereset en wordt er een nieuw reward object gegenereerd.
+In de "OnCollisionEnter()" methode wordt er een check uitgevoerd om te checken of er een botsing is tussen een speler en een reward object. Als er zich een botsing voordoet, wordt de environment gereset en wordt er een nieuw reward object gegenereerd.
 
-#### 5.4 Player
+#### 6.4 Player
 
 ![Configuration Player script](Images/configPlayer.PNG)
 
-het agent script
+Player is het grootste script met de meeste functionaliteiten. In dit script wordt bepaalt welke acties de speler kan uitvoeren. Er wordt bepaalt wat de speler moet doen als hij een car of een reward aanraakt. Om van het player object een zelflerende agent te maken, moet het object eerst overervan van Agent. 
 
-jump player
-
-kijkt of hij kan jumpen
-
-kijkt of/met welk objet hij collide
-
-dat bij het begin van de episode het player object een juiste positie krijgt en de environment word klaargezet
-
-collects observations
-
-heuristic methode die ervoor zorgt dat we het handmattig kunnen testen
-
-onActionRecieved die ervoor zorgt dat acties worden uitgevoerd tijdens het testen en tijdens het leren
+Er worden vijf methodes overgeërfd:
+- Initialize
+- OnEpisodeBegin
+- CollectObservations
+- Heuristic
+- OnActionReceived
 
 ```csharp
     public float jumpHeight = 6f;
@@ -271,7 +267,8 @@ onActionRecieved die ervoor zorgt dat acties worden uitgevoerd tijdens het teste
     }
 ```
 
-Deze methode zorgt ervoor dat de speler kan jumpen. Eerst word er gecontroleerd of het mogelijk is voor de speler om te jumpen.
+Bovenaan worden de variabelen geïnitialiseerd. De jumpHeight heeft een public modifier, dit zorgt ervoor dat de hoogte kan worden geconfigureerd in het player object. In de "initialize()" methode worden de variabelen opgevuld.
+
 
 ```csharp
     private void JumpPlayer()
@@ -283,7 +280,8 @@ Deze methode zorgt ervoor dat de speler kan jumpen. Eerst word er gecontroleerd 
         }
     }
 ```
-In de FixedUpdate methode worden er punten gegeven als de player op de street staat en blijft staan. 
+
+Deze methode zorgt ervoor dat de speler kan springen. Eerst word er gecontroleerd of het mogelijk is voor de speler om te springen.
 
 ```csharp
     private void FixedUpdate()
@@ -296,7 +294,8 @@ In de FixedUpdate methode worden er punten gegeven als de player op de street st
         }
     }
 ```
-De OnCollisionEnter zorgt ervoor dat als de player een ander object aanraakt er iets gebeurt. Bij het aanraken van het street object word ervoor gezord dat de player terug kan jumpen. Als hij het car object aanraakt dan zal de player minpunten krijgen. Na 5 keer een car object aan te raken zal de episode beëindigd worden. Als de player een reward object aanraakt zal de player pluspunten krijgen. Bij het aanraken van een car of reward object zal de environment gereset worden.
+
+In de FixedUpdate methode worden er punten gegeven als de player op de street staat en blijft staan. Dit ontmoedigt de speler om de hele tijd te springen.
 
 ```csharp
     void OnCollisionEnter(Collision collision)
@@ -326,7 +325,8 @@ De OnCollisionEnter zorgt ervoor dat als de player een ander object aanraakt er 
         }
     }
 ```
-Deze methode word aangeroepen bij het begin van een episode. Ze zorgt ervoor dat de positie van de player correct is en dat de environment word geladen. Hier word ook het aantal aangeraakte cars terug op 0 gezet zodat de telling opnieuw kan beginnen.
+
+De OnCollisionEnter zorgt ervoor dat er bepaalde methodes worden uitgevoerd als de player een ander object aanraakt. Bij het aanraken van het street object wordt ervoor gezord dat de player terug kan springen. Als hij het car object aanraakt dan zal de player minpunten krijgen. Na 5 keer een car object aan te raken zal de episode beëindigd worden. Als de player een reward object aanraakt zal de player pluspunten krijgen. Bij het aanraken van een car of reward object zal de environment gereset worden.
 
 ```csharp
     public override void OnEpisodeBegin()
@@ -342,12 +342,15 @@ Deze methode word aangeroepen bij het begin van een episode. Ze zorgt ervoor dat
         carsHit = 0;
     }
 ```
+Deze methode word aangeroepen bij het begin van een episode. Ze zorgt ervoor dat de positie van de player correct is en dat de environment wordt geladen. Hier wordt ook het aantal aangeraakte cars terug op nul gezet zodat de telling opnieuw kan beginnen.
 
 ```csharp
     public override void CollectObservations(VectorSensor sensor)
     {
     }
 ```
+
+Met deze methode gaat de agent observeren. In dit geval word er alleen met de RayPerception geobserveerd. Deze worden automatisch aan de observations toegevoegd. Hierdoor is de methode leeg.
 
 ```csharp
     public override void Heuristic(float[] actionsOut)
@@ -360,6 +363,8 @@ Deze methode word aangeroepen bij het begin van een episode. Ze zorgt ervoor dat
         }
     }
 ```
+
+De Heuristic methode is de belangrijkste methode voor het testen van de spelomgeving. Hiermee kan de ontwikkelaar de spelomgeving zelf gaan besturen. In dit geval kan hij de player laten jumpen met de space key.
 
 ```csharp
     public override void OnActionReceived(float[] vectorAction)
@@ -376,44 +381,88 @@ Deze methode word aangeroepen bij het begin van een episode. Ze zorgt ervoor dat
     }
 ```
 
-#### 5.5 RayPerception Sensor 3D
+Deze methode gaat de acties die door de Heuristic methode of het brein meegegeven worden vertalen naar acties. Als er geen actie meegegeven word dan zal de vectorAction nul zijn en zal er niets gebeuren. Als de vectoractie niet nul is zal de player de "Jump()" methode aanroepen.
 
-Zoals eerder gezegd werken we met 2 verschillende RayPersception sensors dit omdat de objectem car en reward niet door dezelfde RayPerception sensor gezien kunnen worden. De eerste RayPerception sensor is zo ingesteld dat hij maar 1 ray heeft die vooruit kijkt met een lengte van 40. De tweede RayPerception sensor is hetzelfde ingesteld alleen krijgt deze een Start en End vertical offset van 2. Hierdoor kan de eerste RayPerception sensor het Car object zien en de tweede het Reward object.
+#### 6.5 RayPerception Sensor 3D
+
+Er wordt gebruik gemaakt van twee verschillende RayPerception sensoren. De reden hiervoor is omdat de car en reward objecten niet door dezelfde RayPerception sensor kunnen worden gezien. De eerste RayPerception sensor is zo ingesteld dat hij maar één ray heeft die vooruit kijkt met een lengte van veertig. De tweede RayPerception sensor is identiek ingesteld, alleen krijgt deze een Start en End vertical offset van twee. Hierdoor kan de eerste RayPerception sensor het Car object zien en de tweede het Reward object.
 
 ![Configuration RayPerception sensor 1](Images/configRayPerceptionDown.PNG)
 
 ![Configuration RayPerception sensor 2](Images/configRayPerceptionUp.PNG)
 
-#### 5.6 Behavior Parameters
+#### 6.6 Behavior Parameters
 
-Door Behavior Type aan te passen naar Heuristic Only kan er handmattig getest worden. Door dit aan te passen naar Default kan er samen met ML Agents geleert worden. Als er in model een brein word gestoken kan er ook vanuit dit brein verder geleerd worden. Hiermee kan ook gekeken worden wat het brein al kan zonder verder te leren.
+Door Behavior Type aan te passen naar Heuristic Only kan er handmatig getest worden. Door deze instelling aan te passen naar Default kan de agent zichzelf trainen door gebruik te maken van ML Agents. Als er in model een brein word gestoken kan er ook vanuit dit brein verder geleerd worden. Hiermee kan ook gekeken worden wat het brein al kan zonder verder te leren.
 
 ![Configuration Behavior Parameters](Images/configBehaviorParameters.PNG)
 
-#### 5.7 Decision Requester
+#### 6.7 Decision Requester
 
-![Configuration Behavior Parameters](Images/configDecisionRequester.PNG)
+Decision Requester bepaalt wanneer de agent moet beslissen om een actie uit te voeren. De decision period is de tijd die tussen beslissingen zit.
 
-## 6. Beloningsysteem
-
-Het belongingsysteem is 1 van de belangrijkste componenten van het leerproces. Dit omdat uit deze belongingen de agent gaat leren. We hebben ervoor gekozen om de agent punten te geven om te blijven stilstaan. Dit om het niet continu springen af te raden. Ook krijgt de agent punten als hij een reward oppakt. De agent zal punten verliezen als hij geraakt word door een car.
+![Configuration Decision Requester](Images/configDecisionRequester.PNG)
 
 ## 7. Training
 
-Voordat we beginnen met het trainen moet er nog een Learning map toegevoegd worden aan het project. In deze map zetten we ook nog een yml file. Deze file is de configuratie van het leren. Hiernaast komt ook nog een Results map waar de resultaten van het leren in terecht komen.
+Voordat we beginnen met het trainen moet er een Learning map toegevoegd worden aan het project. In deze map maken we een .yml file aan. Deze file bevat de configuratie die gebruikt gaat worden om de agent te laten leren. In de Learning map komt een Results map waar de resultaten van het leren in terecht komen.
 
-Om een leer omgeving op te zetten open je een cmd in de map Learning en geef je dit comando in:
+Jumper.yml file:
 
+```yml
+behaviors:
+  Player:
+    trainer_type: ppo
+    max_steps: 2.0e6
+    time_horizon: 64
+    summary_freq: 10000
+    keep_checkpoints: 1
+    checkpoint_interval: 50000
+    
+    hyperparameters:
+      batch_size: 64
+      buffer_size: 9600
+      learning_rate: 3.0e-4
+      learning_rate_schedule: constant
+      beta: 5.0e-3
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+
+    network_settings:
+      num_layers: 2
+      hidden_units: 128
+      normalize: false
+      vis_encoder_type: simple
+      memory:
+        sequence_length: 64
+        memory_size: 256  
+        
+    reward_signals:
+      extrinsic:
+        strength: 1.0
+        gamma: 0.99
+      curiosity:
+        strength: 0.02
+        gamma: 0.99
+        encoding_size: 256
+        learning_rate : 1e-3
+```
+
+Om een leeromgeving op te zetten open je een cmd in de map Learning en geef je dit comando in:
+
+```shell
 mlagents-learn Jumper.yml --run-id Jumper-01
+```
 
-Het neemt de yml file Jumper voor de configuratie en maakt in de Results map het resultaat aan in de map Jumper-01. Om een tweede leer omgeving aan te maken moet de Jumper-01 aangepast worden naar bijvoorbeeld Jumper-02.
+Het gebruikt de Jumper.yml file voor de configuratie en maakt in de Results map het resultaat aan in de map Jumper-01. Om een tweede leeromgeving aan te maken moet de Jumper-01 aangepast worden naar bijvoorbeeld Jumper-02.
 
 Om de resultaten van het leerproces gemakkelijk te kunnen bekijken open je een cmd in de map Learning en geef je dit comando in:
 
+```shell
 tensorboard --logdir results
+```
 
-Dit opent op localhost:6006 een tensorboard. Hierop zijn de resultaten van het leerproces duidelijk te zien.
+Dit opent TensorBoard op localhost:6006. Hierop zijn de resultaten van het leerproces duidelijk te zien.
 
 ![Training scene](Images/trainingScene.PNG)
-
-![yml file](Images/ymlFile.PNG)
