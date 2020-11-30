@@ -1,2 +1,2 @@
-model_checkpoint_path: "Player-500302.ckpt"
-all_model_checkpoint_paths: "Player-500302.ckpt"
+model_checkpoint_path: "Player-500195.ckpt"
+all_model_checkpoint_paths: "Player-500195.ckpt"

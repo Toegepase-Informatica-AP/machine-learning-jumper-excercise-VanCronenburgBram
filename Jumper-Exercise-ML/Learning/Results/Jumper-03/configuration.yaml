@@ -25,7 +25,7 @@ behaviors:
         strength: 1.0
       curiosity:
         gamma: 0.99
-        strength: 0.02
+        strength: 0.005
         encoding_size: 256
         learning_rate: 0.001
     init_path: null
